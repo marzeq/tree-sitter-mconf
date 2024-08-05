@@ -88,7 +88,7 @@ module.exports = grammar({
     ),
 
     assignment: $ => seq(
-      field("key", $.key),
+      field("key", choice($.key, $.string)),
       "=",
       $._value
     ),
