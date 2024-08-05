@@ -1,0 +1,9 @@
+# this is a comment
+a = 1
+$b = "a\nb"
+c = $b
+
+{
+  a = 1
+  b = "a"
+}
