@@ -1,6 +1,6 @@
 (string) @string
 
-(escape_sequence) @escape
+(escape_sequence) @string.escape
 
 (number) @number
 
@@ -11,7 +11,7 @@
 (assignment
   key: (_) @property)
 
-(constant) @constant
+(constant) @keyword
 
 [
  "["
