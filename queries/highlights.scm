@@ -6,10 +6,10 @@
 
 (comment) @comment
 
-(bool) @bool
+(bool) @boolean
 
 (assignment
-  key: (_) @key)
+  key: (_) @property)
 
 (constant) @constant
 
@@ -18,8 +18,8 @@
  "]"
  "{"
  "}"
-] @bracket
+] @punctuation.bracket
 
 [
  "="
-] @assign
+] @punctuation.delimiter
