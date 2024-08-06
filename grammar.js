@@ -26,7 +26,7 @@ module.exports = grammar({
       $.object
     ),
 
-    key: $ => /[a-zA-Z][a-zA-Z0-9_]*/,
+    key: $ => /(\p{L}|_)(\p{L}|\d|_|)*/u,
 
     number: $ => {
       const integer = /-?\d+/;
