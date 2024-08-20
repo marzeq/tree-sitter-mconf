@@ -23,7 +23,8 @@ module.exports = grammar({
     _definition: $ => choice(
       $.assignment,
       $.constant_assignment,
-      $.object
+      $.object,
+      $.import
     ),
 
     key: $ => /(\p{L}|_)(\p{L}|\d|_|)*/u,
@@ -97,6 +98,11 @@ module.exports = grammar({
       $.constant,
       "=",
       $._value
+    ),
+
+    import: $ => seq(
+      "@import",
+      $.string
     ),
 
     comment: $ => token(

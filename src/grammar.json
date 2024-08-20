@@ -22,6 +22,10 @@
         {
           "type": "SYMBOL",
           "name": "object"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "import"
         }
       ]
     },
@@ -311,6 +315,19 @@
         {
           "type": "SYMBOL",
           "name": "_value"
+        }
+      ]
+    },
+    "import": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "@import"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "string"
         }
       ]
     },

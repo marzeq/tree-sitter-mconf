@@ -105,6 +105,21 @@
     }
   },
   {
+    "type": "import",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "list",
     "named": true,
     "fields": {},
@@ -176,6 +191,10 @@
           "named": true
         },
         {
+          "type": "import",
+          "named": true
+        },
+        {
           "type": "object",
           "named": true
         }
@@ -215,6 +234,10 @@
   },
   {
     "type": "=",
+    "named": false
+  },
+  {
+    "type": "@import",
     "named": false
   },
   {

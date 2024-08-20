@@ -11,7 +11,9 @@
 (assignment
   key: (_) @property)
 
-(constant) @keyword
+(import) @keyword
+
+(constant) @constant
 
 [
  "["
