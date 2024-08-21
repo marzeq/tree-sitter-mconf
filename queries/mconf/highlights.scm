@@ -13,6 +13,9 @@
 
 (import) @keyword
 
+(import
+  key: (_) @property)
+
 (constant) @constant
 
 [
@@ -25,4 +28,5 @@
 [
  "="
  ","
+ "."
 ] @punctuation.delimiter

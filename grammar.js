@@ -1,113 +1,74 @@
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-check
 
-const commaSepList1 = (rule) => seq(rule, repeat(seq(",", rule)))
+const commaSepRequired1 = (rule) => seq(rule, repeat(seq(",", rule)));
 
-const commaSepList = (rule) => optional(commaSepList1(rule))
+const commaSepRequired = (rule) => optional(commaSepRequired1(rule));
 
-const commaSepObj1 = (rule) => repeat(seq(rule, optional(",")))
+const commaSepOptional1 = (rule) => repeat(seq(rule, optional(",")));
 
-const commaSepObj = (rule) => optional(commaSepObj1(rule))
+const commaSepOptional = (rule) => optional(commaSepOptional1(rule));
 
 module.exports = grammar({
   name: "mconf",
-// a
-  extras: $ => [
-    /\s/,
-    $.comment
-  ],
+  // a
+  extras: ($) => [/\s/, $.comment],
 
   rules: {
-    source_file: $ => repeat($._definition),
+    source_file: ($) => repeat($._definition),
 
-    _definition: $ => choice(
-      $.assignment,
-      $.constant_assignment,
-      $.object,
-      $.import
-    ),
+    _definition: ($) =>
+      choice($.assignment, $.constant_assignment, $.object, $.import),
 
-    key: $ => /(\p{L}|_)(\p{L}|\d|_|)*/u,
+    key: ($) => /(\p{L}|_)(\p{L}|\d|_|)*/u,
 
-    number: $ => {
+    number: ($) => {
       const integer = /-?\d+/;
       const fraction = /-?\d*\.\d+/;
 
-      return choice(
-        integer,
-        fraction
-      );
+      return choice(integer, fraction);
     },
 
     // strings can be multi-line
-    string: $ => choice(
-      seq('"', '"'),
-      seq('"', $._string_content, '"'),
-    ),
+    string: ($) => choice(seq('"', '"'), seq('"', $._string_content, '"')),
 
-    _string_content: $ => repeat1(choice(
-      $.string_content,
-      $.escape_sequence,
-    )),
+    _string_content: ($) =>
+      repeat1(choice($.string_content, $.escape_sequence)),
 
-    string_content: _ => token.immediate(prec(1, /[^\\"]+/)),
+    string_content: (_) => token.immediate(prec(1, /[^\\"]+/)),
 
-    escape_sequence: _ => token.immediate(seq(
-      '\\',
-      /(\"|\\|\/|b|f|n|r|t|u)/,
-    )),
+    escape_sequence: (_) =>
+      token.immediate(seq("\\", /(\"|\\|\/|b|f|n|r|t|u)/)),
 
-    bool: $ => choice(
-      "true",
-      "false"
-    ),
+    bool: ($) => choice("true", "false"),
 
-    constant: $ => seq(
-      "$",
-      $.key
-    ),
+    constant: ($) => seq("$", $.key),
 
-    object: $ => seq(
-      "{",
-      commaSepObj($.assignment),
-      "}"
-    ),
+    object: ($) => seq("{", commaSepOptional($.assignment), "}"),
 
-    list: $ => seq(
-      "[",
-      commaSepList($._value),
-      "]"
-    ),
+    list: ($) => seq("[", commaSepRequired($._value), "]"),
 
-    _value: $ => choice(
-      $.number,
-      $.string,
-      $.bool,
-      $.constant,
-      $.object,
-      $.list
-    ),
+    _value: ($) =>
+      choice($.number, $.string, $.bool, $.constant, $.object, $.list),
 
-    assignment: $ => seq(
-      field("key", choice($.key, $.string)),
-      "=",
-      $._value
-    ),
+    assignment: ($) =>
+      seq(field("key", choice($.key, $.string)), "=", $._value),
 
-    constant_assignment: $ => seq(
-      $.constant,
-      "=",
-      $._value
-    ),
+    constant_assignment: ($) => seq($.constant, "=", $._value),
 
-    import: $ => seq(
-      "@import",
-      $.string
-    ),
+    import: ($) =>
+      seq(
+        "@import",
+        optional(
+          seq(
+            "{",
+            commaSepRequired(repeat(seq(field("key", $.key), optional(".")))),
+            "}",
+          ),
+        ),
+        $.string,
+      ),
 
-    comment: $ => token(
-      seq("#", /.*/)
-    )
-  }
+    comment: ($) => token(seq("#", /.*/)),
+  },
 });
-
