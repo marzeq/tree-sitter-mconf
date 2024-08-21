@@ -62,7 +62,9 @@ module.exports = grammar({
         optional(
           seq(
             "{",
-            commaSepRequired(repeat(seq(field("key", $.key), optional(".")))),
+            commaSepRequired(
+              repeat(seq(field("key", choice($.key, $.string)), optional("."))),
+            ),
             "}",
           ),
         ),
