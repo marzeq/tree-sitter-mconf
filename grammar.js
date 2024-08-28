@@ -1,17 +1,20 @@
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-check
 
-const commaSepRequired1 = (rule) => seq(rule, repeat(seq(",", rule)));
+const commaSepRequired1 = (/** @type {RuleOrLiteral} */ rule) =>
+  seq(rule, repeat(seq(",", rule)));
 
-const commaSepRequired = (rule) => optional(commaSepRequired1(rule));
+const commaSepRequired = (/** @type {RuleOrLiteral} */ rule) =>
+  optional(commaSepRequired1(rule));
 
-const commaSepOptional1 = (rule) => repeat(seq(rule, optional(",")));
+const commaSepOptional1 = (/** @type {RuleOrLiteral} */ rule) =>
+  repeat(seq(rule, optional(",")));
 
-const commaSepOptional = (rule) => optional(commaSepOptional1(rule));
+const commaSepOptional = (/** @type {RuleOrLiteral} */ rule) =>
+  optional(commaSepOptional1(rule));
 
 module.exports = grammar({
   name: "mconf",
-  // a
   extras: ($) => [/\s/, $.comment],
 
   rules: {
@@ -20,9 +23,9 @@ module.exports = grammar({
     _definition: ($) =>
       choice($.assignment, $.constant_assignment, $.object, $.import),
 
-    key: ($) => /(\p{L}|_)(\p{L}|\d|_|)*/u,
+    key: (_) => /(\p{L}|_)(\p{L}|\d|_|)*/u,
 
-    number: ($) => {
+    number: (_) => {
       const integer = /-?\d+/;
       const fraction = /-?\d*\.\d+/;
 
@@ -40,9 +43,9 @@ module.exports = grammar({
     escape_sequence: (_) =>
       token.immediate(seq("\\", /(\"|\\|\/|b|f|n|r|t|u)/)),
 
-    bool: ($) => choice("true", "false"),
+    bool: (_) => choice("true", "false"),
 
-    constant: ($) => seq("$", $.key),
+    constant: ($) => seq(seq("$", $.key), optional(seq("?", "$", $.key))),
 
     object: ($) => seq("{", commaSepOptional($.assignment), "}"),
 
@@ -71,6 +74,6 @@ module.exports = grammar({
         $.string,
       ),
 
-    comment: ($) => token(seq("#", /.*/)),
+    comment: (_) => token(seq("#", /.*/)),
   },
 });
