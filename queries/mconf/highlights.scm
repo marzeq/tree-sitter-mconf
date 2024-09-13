@@ -14,7 +14,7 @@
 (import) @keyword
 
 (import
-  key: (_) @property)
+  key: (_) @constant)
 
 (constant) @constant
 

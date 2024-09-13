@@ -28,8 +28,10 @@ module.exports = grammar({
     number: (_) => {
       const integer = /-?\d+/;
       const fraction = /-?\d*\.\d+/;
+      const hex = /-?0x[0-9a-fA-F]+/;
+      const binary = /-?0b[01]+/;
 
-      return choice(integer, fraction);
+      return choice(integer, fraction, hex, binary);
     },
 
     // strings can be multi-line
@@ -41,11 +43,16 @@ module.exports = grammar({
     string_content: (_) => token.immediate(prec(1, /[^\\"]+/)),
 
     escape_sequence: (_) =>
-      token.immediate(seq("\\", /(\"|\\|\/|b|f|n|r|t|u)/)),
+      token.immediate(
+        seq(
+          "\\",
+          /(\"|\'|\\|a|b|t|n|v|f|r|e|x[0-9a-fA-F]{2}|u[0-9a-fA-F]{4}|U[0-9a-fA-F]{4})|\$/,
+        ),
+      ),
 
     bool: (_) => choice("true", "false"),
 
-    constant: ($) => seq(seq("$", $.key), optional(seq("?", "$", $.key))),
+    constant: ($) => seq(seq("$", $.key), optional(seq("?", $._value))),
 
     object: ($) => seq("{", commaSepOptional($.assignment), "}"),
 
@@ -66,7 +73,12 @@ module.exports = grammar({
           seq(
             "{",
             commaSepRequired(
-              repeat(seq(field("key", choice($.key, $.string)), optional("."))),
+              repeat(
+                choice(
+                  seq(field("key", choice($.key, $.string)), optional(".")),
+                  $.constant,
+                ),
+              ),
             ),
             "}",
           ),
