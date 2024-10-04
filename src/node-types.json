@@ -316,11 +316,27 @@
     "named": true
   },
   {
+    "type": "no",
+    "named": false
+  },
+  {
+    "type": "off",
+    "named": false
+  },
+  {
+    "type": "on",
+    "named": false
+  },
+  {
     "type": "string_content",
     "named": true
   },
   {
     "type": "true",
+    "named": false
+  },
+  {
+    "type": "yes",
     "named": false
   },
   {

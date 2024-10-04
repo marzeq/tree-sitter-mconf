@@ -50,7 +50,7 @@ module.exports = grammar({
         ),
       ),
 
-    bool: (_) => choice("true", "false"),
+    bool: (_) => choice("true", "false", "on", "off", "yes", "no"),
 
     constant: ($) => seq(seq("$", $.key), optional(seq("?", $._value))),
 
