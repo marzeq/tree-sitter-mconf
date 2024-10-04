@@ -27,7 +27,7 @@ module.exports = grammar({
 
     number: (_) => {
       const integer = /-?\d+/;
-      const fraction = /-?\d*\.\d+/;
+      const fraction = /-?\d*\.\d+((?:e|E)(?:-|\+)?\d+)?/;
       const hex = /-?0x[0-9a-fA-F]+/;
       const binary = /-?0b[01]+/;
 
@@ -52,6 +52,8 @@ module.exports = grammar({
 
     bool: (_) => choice("true", "false", "on", "off", "yes", "no"),
 
+    null: (_) => "null",
+
     constant: ($) => seq(seq("$", $.key), optional(seq("?", $._value))),
 
     object: ($) => seq("{", commaSepOptional($.assignment), "}"),
@@ -59,10 +61,10 @@ module.exports = grammar({
     list: ($) => seq("[", commaSepRequired($._value), "]"),
 
     _value: ($) =>
-      choice($.number, $.string, $.bool, $.constant, $.object, $.list),
+      choice($.number, $.string, $.bool, $.null, $.constant, $.object, $.list),
 
     assignment: ($) =>
-      seq(field("key", choice($.key, $.string)), "=", $._value),
+      seq(field("key", choice($.key, $.string)), choice("=", ":"), $._value),
 
     constant_assignment: ($) => seq($.constant, "=", $._value),
 

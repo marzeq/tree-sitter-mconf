@@ -43,7 +43,7 @@
         },
         {
           "type": "PATTERN",
-          "value": "-?\\d*\\.\\d+"
+          "value": "-?\\d*\\.\\d+((?:e|E)(?:-|\\+)?\\d+)?"
         },
         {
           "type": "PATTERN",
@@ -161,6 +161,10 @@
           "value": "no"
         }
       ]
+    },
+    "null": {
+      "type": "STRING",
+      "value": "null"
     },
     "constant": {
       "type": "SEQ",
@@ -309,6 +313,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "null"
+        },
+        {
+          "type": "SYMBOL",
           "name": "constant"
         },
         {
@@ -342,8 +350,17 @@
           }
         },
         {
-          "type": "STRING",
-          "value": "="
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "="
+            },
+            {
+              "type": "STRING",
+              "value": ":"
+            }
+          ]
         },
         {
           "type": "SYMBOL",
