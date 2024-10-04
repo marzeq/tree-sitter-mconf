@@ -8,6 +8,8 @@
 
 (bool) @boolean
 
+(null) @constant
+
 (assignment
   key: (_) @property)
 
