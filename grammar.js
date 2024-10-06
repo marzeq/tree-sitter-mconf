@@ -17,6 +17,7 @@ module.exports = grammar({
   name: "mconf",
   extras: ($) => [/\s/, $.comment],
 
+  conflicts: ($) => [[$.ternary, $._value]],
   rules: {
     source_file: ($) => repeat($._definition),
 
@@ -60,8 +61,20 @@ module.exports = grammar({
 
     list: ($) => seq("[", commaSepRequired($._value), "]"),
 
+    ternary: ($) =>
+      seq(choice($.constant, $.bool), "~", $._value, "|", $._value),
+
     _value: ($) =>
-      choice($.number, $.string, $.bool, $.null, $.constant, $.object, $.list),
+      choice(
+        $.number,
+        $.string,
+        $.bool,
+        $.null,
+        $.constant,
+        $.object,
+        $.list,
+        $.ternary,
+      ),
 
     assignment: ($) =>
       seq(field("key", choice($.key, $.string)), choice("=", ":"), $._value),

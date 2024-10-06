@@ -49,6 +49,10 @@
         {
           "type": "string",
           "named": true
+        },
+        {
+          "type": "ternary",
+          "named": true
         }
       ]
     }
@@ -97,6 +101,10 @@
         {
           "type": "string",
           "named": true
+        },
+        {
+          "type": "ternary",
+          "named": true
         }
       ]
     }
@@ -135,6 +143,10 @@
         },
         {
           "type": "string",
+          "named": true
+        },
+        {
+          "type": "ternary",
           "named": true
         }
       ]
@@ -209,6 +221,10 @@
         {
           "type": "string",
           "named": true
+        },
+        {
+          "type": "ternary",
+          "named": true
         }
       ]
     }
@@ -274,6 +290,49 @@
         },
         {
           "type": "string_content",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ternary",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "bool",
+          "named": true
+        },
+        {
+          "type": "constant",
+          "named": true
+        },
+        {
+          "type": "list",
+          "named": true
+        },
+        {
+          "type": "null",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "object",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "ternary",
           "named": true
         }
       ]
@@ -368,7 +427,15 @@
     "named": false
   },
   {
+    "type": "|",
+    "named": false
+  },
+  {
     "type": "}",
+    "named": false
+  },
+  {
+    "type": "~",
     "named": false
   }
 ]
