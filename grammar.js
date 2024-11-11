@@ -28,7 +28,7 @@ module.exports = grammar({
 
     number: (_) => {
       const integer = /-?\d+/;
-      const fraction = /-?\d*\.\d+((?:e|E)(?:-|\+)?\d+)?/;
+      const fraction = /-?\d*\.?\d+((?:e|E)(?:-|\+)?\d+)?/;
       const hex = /-?0x[0-9a-fA-F]+/;
       const binary = /-?0b[01]+/;
 
