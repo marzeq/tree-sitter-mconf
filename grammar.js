@@ -35,13 +35,20 @@ module.exports = grammar({
       return choice(integer, fraction, hex, binary);
     },
 
-    // strings can be multi-line
     string: ($) => choice(seq('"', '"'), seq('"', $._string_content, '"')),
 
     _string_content: ($) =>
       repeat1(choice($.string_content, $.escape_sequence)),
 
     string_content: (_) => token.immediate(prec(1, /[^\\"]+/)),
+
+    string_single_quote: ($) =>
+      choice(seq("'", "'"), seq("'", $._string_single_quote_content, "'")),
+
+    _string_single_quote_content: ($) =>
+      repeat1(choice($.string_single_quote_content, $.escape_sequence)),
+
+    string_single_quote_content: (_) => token.immediate(prec(1, /[^\\']+/)),
 
     escape_sequence: (_) =>
       token.immediate(
@@ -68,6 +75,7 @@ module.exports = grammar({
       choice(
         $.number,
         $.string,
+        $.string_single_quote,
         $.bool,
         $.null,
         $.constant,
@@ -77,7 +85,11 @@ module.exports = grammar({
       ),
 
     assignment: ($) =>
-      seq(field("key", choice($.key, $.string)), choice("=", ":"), $._value),
+      seq(
+        field("key", choice($.key, $.string, $.string_single_quote)),
+        choice("=", ":"),
+        $._value,
+      ),
 
     constant_assignment: ($) => seq($.constant, "=", $._value),
 
@@ -90,7 +102,13 @@ module.exports = grammar({
             commaSepRequired(
               repeat(
                 choice(
-                  seq(field("key", choice($.key, $.string)), optional(".")),
+                  seq(
+                    field(
+                      "key",
+                      choice($.key, $.string, $.string_single_quote),
+                    ),
+                    optional("."),
+                  ),
                   $.constant,
                 ),
               ),
@@ -98,7 +116,7 @@ module.exports = grammar({
             "}",
           ),
         ),
-        $.string,
+        choice($.string, $.string_single_quote),
       ),
 
     comment: (_) => token(seq("#", /.*/)),

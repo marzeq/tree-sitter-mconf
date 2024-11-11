@@ -14,6 +14,10 @@
           {
             "type": "string",
             "named": true
+          },
+          {
+            "type": "string_single_quote",
+            "named": true
           }
         ]
       }
@@ -48,6 +52,10 @@
         },
         {
           "type": "string",
+          "named": true
+        },
+        {
+          "type": "string_single_quote",
           "named": true
         },
         {
@@ -103,6 +111,10 @@
           "named": true
         },
         {
+          "type": "string_single_quote",
+          "named": true
+        },
+        {
           "type": "ternary",
           "named": true
         }
@@ -146,6 +158,10 @@
           "named": true
         },
         {
+          "type": "string_single_quote",
+          "named": true
+        },
+        {
           "type": "ternary",
           "named": true
         }
@@ -167,6 +183,10 @@
           {
             "type": "string",
             "named": true
+          },
+          {
+            "type": "string_single_quote",
+            "named": true
           }
         ]
       }
@@ -181,6 +201,10 @@
         },
         {
           "type": "string",
+          "named": true
+        },
+        {
+          "type": "string_single_quote",
           "named": true
         }
       ]
@@ -220,6 +244,10 @@
         },
         {
           "type": "string",
+          "named": true
+        },
+        {
+          "type": "string_single_quote",
           "named": true
         },
         {
@@ -296,6 +324,25 @@
     }
   },
   {
+    "type": "string_single_quote",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "escape_sequence",
+          "named": true
+        },
+        {
+          "type": "string_single_quote_content",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "ternary",
     "named": true,
     "fields": {},
@@ -332,6 +379,10 @@
           "named": true
         },
         {
+          "type": "string_single_quote",
+          "named": true
+        },
+        {
           "type": "ternary",
           "named": true
         }
@@ -344,6 +395,10 @@
   },
   {
     "type": "$",
+    "named": false
+  },
+  {
+    "type": "'",
     "named": false
   },
   {
@@ -412,6 +467,10 @@
   },
   {
     "type": "string_content",
+    "named": true
+  },
+  {
+    "type": "string_single_quote_content",
     "named": true
   },
   {
