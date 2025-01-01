@@ -24,7 +24,7 @@ module.exports = grammar({
     _definition: ($) =>
       choice($.assignment, $.constant_assignment, $.object, $.import),
 
-    key: (_) => /(\p{L}|_)(\p{L}|\d|_|)*/u,
+    key: (_) => /(\p{L}|_)(\p{L}|\d|-|_|)*/u,
 
     number: (_) => {
       const integer = /-?\d+/;

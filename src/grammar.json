@@ -31,7 +31,7 @@
     },
     "key": {
       "type": "PATTERN",
-      "value": "(\\p{L}|_)(\\p{L}|\\d|_|)*",
+      "value": "(\\p{L}|_)(\\p{L}|\\d|-|_|)*",
       "flags": "u"
     },
     "number": {
