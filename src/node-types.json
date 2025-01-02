@@ -3,20 +3,20 @@
     "type": "assignment",
     "named": true,
     "fields": {
-      "key": {
+      "word": {
         "multiple": false,
         "required": true,
         "types": [
-          {
-            "type": "key",
-            "named": true
-          },
           {
             "type": "string",
             "named": true
           },
           {
             "type": "string_single_quote",
+            "named": true
+          },
+          {
+            "type": "word",
             "named": true
           }
         ]
@@ -61,6 +61,10 @@
         {
           "type": "ternary",
           "named": true
+        },
+        {
+          "type": "word",
+          "named": true
         }
       ]
     }
@@ -84,10 +88,6 @@
         },
         {
           "type": "constant",
-          "named": true
-        },
-        {
-          "type": "key",
           "named": true
         },
         {
@@ -116,6 +116,10 @@
         },
         {
           "type": "ternary",
+          "named": true
+        },
+        {
+          "type": "word",
           "named": true
         }
       ]
@@ -164,6 +168,10 @@
         {
           "type": "ternary",
           "named": true
+        },
+        {
+          "type": "word",
+          "named": true
         }
       ]
     }
@@ -172,20 +180,20 @@
     "type": "import",
     "named": true,
     "fields": {
-      "key": {
+      "word": {
         "multiple": true,
         "required": false,
         "types": [
-          {
-            "type": "key",
-            "named": true
-          },
           {
             "type": "string",
             "named": true
           },
           {
             "type": "string_single_quote",
+            "named": true
+          },
+          {
+            "type": "word",
             "named": true
           }
         ]
@@ -252,6 +260,10 @@
         },
         {
           "type": "ternary",
+          "named": true
+        },
+        {
+          "type": "word",
           "named": true
         }
       ]
@@ -385,6 +397,10 @@
         {
           "type": "ternary",
           "named": true
+        },
+        {
+          "type": "word",
+          "named": true
         }
       ]
     }
@@ -446,10 +462,6 @@
     "named": false
   },
   {
-    "type": "key",
-    "named": true
-  },
-  {
     "type": "no",
     "named": false
   },
@@ -476,6 +488,10 @@
   {
     "type": "true",
     "named": false
+  },
+  {
+    "type": "word",
+    "named": true
   },
   {
     "type": "yes",
