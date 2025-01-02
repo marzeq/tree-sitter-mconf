@@ -29,7 +29,12 @@
         }
       ]
     },
-    "word": {
+    "key": {
+      "type": "PATTERN",
+      "value": "(\\p{L}|_|-)(\\p{L}|\\d|-|_|)*",
+      "flags": "u"
+    },
+    "string_single_word": {
       "type": "PATTERN",
       "value": "(\\p{L}|_|-)(\\p{L}|\\d|-|_|)*",
       "flags": "u"
@@ -240,7 +245,7 @@
             },
             {
               "type": "SYMBOL",
-              "name": "word"
+              "name": "key"
             }
           ]
         },
@@ -405,11 +410,11 @@
         },
         {
           "type": "SYMBOL",
-          "name": "word"
+          "name": "string_single_quote"
         },
         {
           "type": "SYMBOL",
-          "name": "string_single_quote"
+          "name": "string_single_word"
         },
         {
           "type": "SYMBOL",
@@ -442,13 +447,13 @@
       "members": [
         {
           "type": "FIELD",
-          "name": "word",
+          "name": "key",
           "content": {
             "type": "CHOICE",
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "word"
+                "name": "key"
               },
               {
                 "type": "SYMBOL",
@@ -530,13 +535,13 @@
                                 "members": [
                                   {
                                     "type": "FIELD",
-                                    "name": "word",
+                                    "name": "key",
                                     "content": {
                                       "type": "CHOICE",
                                       "members": [
                                         {
                                           "type": "SYMBOL",
-                                          "name": "word"
+                                          "name": "key"
                                         },
                                         {
                                           "type": "SYMBOL",
@@ -589,13 +594,13 @@
                                       "members": [
                                         {
                                           "type": "FIELD",
-                                          "name": "word",
+                                          "name": "key",
                                           "content": {
                                             "type": "CHOICE",
                                             "members": [
                                               {
                                                 "type": "SYMBOL",
-                                                "name": "word"
+                                                "name": "key"
                                               },
                                               {
                                                 "type": "SYMBOL",

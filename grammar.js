@@ -24,7 +24,8 @@ module.exports = grammar({
     _definition: ($) =>
       choice($.assignment, $.constant_assignment, $.object, $.import),
 
-    word: (_) => /(\p{L}|_|-)(\p{L}|\d|-|_|)*/u,
+    key: (_) => /(\p{L}|_|-)(\p{L}|\d|-|_|)*/u,
+    string_single_word: (_) => /(\p{L}|_|-)(\p{L}|\d|-|_|)*/u,
 
     number: (_) => {
       const integer = /-?\d+/;
@@ -62,7 +63,7 @@ module.exports = grammar({
 
     null: (_) => "null",
 
-    constant: ($) => seq(seq("$", $.word), optional(seq("?", $._value))),
+    constant: ($) => seq(seq("$", $.key), optional(seq("?", $._value))),
 
     object: ($) => seq("{", commaSepOptional($.assignment), "}"),
 
@@ -75,8 +76,8 @@ module.exports = grammar({
       choice(
         $.number,
         $.string,
-        $.word,
         $.string_single_quote,
+        $.string_single_word,
         $.bool,
         $.null,
         $.constant,
@@ -87,7 +88,7 @@ module.exports = grammar({
 
     assignment: ($) =>
       seq(
-        field("word", choice($.word, $.string, $.string_single_quote)),
+        field("key", choice($.key, $.string, $.string_single_quote)),
         choice("=", ":"),
         $._value,
       ),
@@ -105,8 +106,8 @@ module.exports = grammar({
                 choice(
                   seq(
                     field(
-                      "word",
-                      choice($.word, $.string, $.string_single_quote),
+                      "key",
+                      choice($.key, $.string, $.string_single_quote),
                     ),
                     optional("."),
                   ),

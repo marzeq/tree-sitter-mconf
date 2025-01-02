@@ -1,4 +1,5 @@
 (string) @string
+(string_single_word) @string
 (string_single_quote) @string
 
 (escape_sequence) @string.escape
